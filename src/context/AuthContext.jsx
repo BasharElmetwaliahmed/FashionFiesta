@@ -38,7 +38,6 @@ const signUp = async (fullName, email, password) => {
   }
 };
 const signIn = async (email, password) => {
-  console.log(email,password);
   try {
     await signInWithEmailAndPassword(auth, email, password);
     toast.success("Login Successfully");

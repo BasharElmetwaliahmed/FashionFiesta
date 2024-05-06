@@ -6,7 +6,6 @@ import { getOrders } from "../features/orders/ordersSlice";
 import Empty from "../ui/Empty";
 import Loading from "../ui/Loading";
 import { formatDateOrders } from "../utils/helpers";
-
 function Orders() {
   const { orders, isLoading } = useSelector(getOrders);
   const { user } = useAuth();

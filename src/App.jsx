@@ -19,22 +19,24 @@ import { useEffect } from "react";
 import { getOrdersAction } from "./features/orders/ordersSlice";
 import OrderPage from "./pages/OrderPage";
 import ContactUs from "./pages/ContactUs";
-import {  getCategoriesAction } from "./features/categories/categoriesSlice";
+import { getCategoriesAction } from "./features/categories/categoriesSlice";
 import NotFoundPage from "./pages/NotFoundPage";
 
+let init = 0;
 function App() {
   const { user } = useAuth();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user) {
-      dispatch(getOrdersAction({id:user.uid}));
+    if (user && init) {
+      dispatch(getOrdersAction({ id: user.uid }));
     }
+    init++;
   }, [user]);
 
-  useEffect(()=>{
-  dispatch(getCategoriesAction());
-  },[])
+  useEffect(() => {
+    dispatch(getCategoriesAction());
+  }, []);
   return (
     <BrowserRouter>
       <Routes>
@@ -50,11 +52,11 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route
             path="/signup"
-            element={user ? <Navigate to="/" /> : <SignUp />}
+            element={user && init ? <Navigate to="/" /> : <SignUp />}
           />
           <Route
             path="/signin"
-            element={user ? <Navigate to="/" /> : <SignIn />}
+            element={user && init ? <Navigate to="/" /> : <SignIn />}
           />
         </Route>
       </Routes>

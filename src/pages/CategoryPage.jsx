@@ -21,10 +21,9 @@ function CategoryPage() {
       ]);
       setCategory(categoryData);
       setProducts(productsData.slice(0, 10));
-      
     } catch (error) {
-            console.error(error.message);
-            if (error.response.status === 400) navigate("/404");
+      console.error(error.message);
+      if (error.response.status === 400) navigate("/404");
     } finally {
       setLoading(false);
     }

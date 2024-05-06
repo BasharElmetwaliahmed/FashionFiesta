@@ -9,7 +9,7 @@ function SelectCategory({ currentCategory, setCurrentCategory }) {
     <form className="max-w-sm mx-auto ">
       <label
         htmlFor="countries"
-        class="block mb-2 text-sm font-medium text-primary-700 dark:text-white">
+        className="block mb-2 text-sm font-medium text-primary-700 dark:text-white">
         Catgories
       </label>
       <select

@@ -18,15 +18,14 @@ function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState([]);
   const [isLoading, setLoading] = useState(false);
-  const navigate = useNavigate()
-    const dispatch = useDispatch();
-    const quantity = useSelector(getCartQuantityById(product.id));
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const quantity = useSelector(getCartQuantityById(product.id));
   const setData = async () => {
     setLoading(true);
     try {
       const data = await getProductsById(id);
       setProduct(data);
-      console.log(data);
     } catch (error) {
       console.error(error.message);
       if (error.response.status === 400) navigate("/404");
@@ -37,20 +36,20 @@ function ProductPage() {
   useEffect(() => {
     setData();
   }, []);
-    const increaseProduct = () => {
-      if (quantity == 0) {
-        dispatch(addItem(product));
-      } else {
-        dispatch(increaseItemQuantity(product.id));
-      }
-    };
-    const decreaseProduct = () => {
-      if (quantity > 0) dispatch(decreaseItemQuantity(product.id));
-    };
+  const increaseProduct = () => {
+    if (quantity == 0) {
+      dispatch(addItem(product));
+    } else {
+      dispatch(increaseItemQuantity(product.id));
+    }
+  };
+  const decreaseProduct = () => {
+    if (quantity > 0) dispatch(decreaseItemQuantity(product.id));
+  };
 
-    let image;
-  if (product.images)  image = product.images;
-  else  image= product.image
+  let image;
+  if (product.images) image = product.images;
+  else image = product.image;
   return (
     <div className="container flex min-h-[calc(100vh_-_96px)]  items-center sec-top ">
       {isLoading ? (

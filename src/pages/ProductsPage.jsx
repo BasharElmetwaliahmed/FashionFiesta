@@ -20,7 +20,6 @@ function ProductsPage() {
       let data;
       if (!currentCategory) data = await getAllProducts();
       else data = await getProductsByCategory(currentCategory);
-      console.log(data)
       setProducts(data);
     } catch (e) {
       console.log(e);
