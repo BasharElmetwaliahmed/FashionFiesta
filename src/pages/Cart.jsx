@@ -24,7 +24,7 @@ function Cart() {
   const pay = async (token) => {
     try {
       const { data } = await axios.post(
-        "hhttps://serverfashionaa.onrender.com/pay",
+        "https://serverfashionaa.onrender.com/pay",
         {
           amount: totalPrice * 100,
           token,
