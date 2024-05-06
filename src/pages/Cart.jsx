@@ -1,6 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import CartListItem from "../features/cart/CartListItem";
-import { clearCart, getCart, getCartPrice, getCartQuantity } from "../features/cart/cartSlice";
+import {
+  clearCart,
+  getCart,
+  getCartPrice,
+  getCartQuantity,
+} from "../features/cart/cartSlice";
 import { FaRegTrashAlt } from "react-icons/fa";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
@@ -10,16 +15,16 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 function Cart() {
   const cart = useSelector(getCart);
-  const {orders} =useSelector(getOrders)
+  const { orders } = useSelector(getOrders);
   const totalPrice = useSelector(getCartPrice);
   const totalQuantity = useSelector(getCartQuantity);
   const dispatch = useDispatch();
   const { user } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const pay = async (token) => {
     try {
       const { data } = await axios.post(
-        "https://serverfashionaa.onrender.com//pay",
+        "hhttps://serverfashionaa.onrender.com/pay",
         {
           amount: totalPrice * 100,
           token,
@@ -32,10 +37,10 @@ function Cart() {
           cartItems: cart,
           userId: user.uid,
           orders,
-          orderId:data,
+          orderId: data,
         })
       );
-      navigate('/orders')
+      navigate("/orders");
       dispatch(clearCart());
     } catch (err) {
       toast.error("error while payment proccess try again later");
@@ -72,18 +77,22 @@ function Cart() {
             </div>
           </div>
 
-         {user? <div className="flex my-4 items-center justify-center">
-            <StripeCheckout
-              name="Fashion Feista"
-              stripeKey="pk_test_51P8VJsHDcdTSqshejhEee1gEkpvpc1iTnZFaOr7ClxOK7igf5tVNvvZpmRTWse7VMuC0IAUoevLDyEUd4A3J8PLx00uYj45963"
-              description="Your payment"
-              ComponentClass="div"
-              panelLabel="Give Money"
-              amount={totalPrice * 100}
-              token={pay}
-              currency="USD"
-            />
-          </div>:<p>Login To Continue To Payment Proccess</p>}
+          {user ? (
+            <div className="flex my-4 items-center justify-center">
+              <StripeCheckout
+                name="Fashion Feista"
+                stripeKey="pk_test_51P8VJsHDcdTSqshejhEee1gEkpvpc1iTnZFaOr7ClxOK7igf5tVNvvZpmRTWse7VMuC0IAUoevLDyEUd4A3J8PLx00uYj45963"
+                description="Your payment"
+                ComponentClass="div"
+                panelLabel="Give Money"
+                amount={totalPrice * 100}
+                token={pay}
+                currency="USD"
+              />
+            </div>
+          ) : (
+            <p>Login To Continue To Payment Proccess</p>
+          )}
         </div>
       ) : (
         <p className="text-center text-xl font-semibold my-52">Empty Cart</p>
