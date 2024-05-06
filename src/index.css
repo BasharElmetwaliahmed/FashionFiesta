@@ -16,10 +16,10 @@ body{
     @apply hover:opacity-60 hover:shadow-lg duration-300 transition-all
    }
    .input{
-    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:bg-primary-50 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700  outline-none
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:bg-primary-50 focus:border-primary-500 block w-full p-2.5 outline-none
    }
    .input-label{
-    @apply block mb-2 text-sm font-medium text-gray-900 dark:text-white
+    @apply block mb-2 text-sm font-medium text-gray-900 
    }
    .error-msg{
     @apply text-sm text-red-600 my-3
