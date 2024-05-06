@@ -14,14 +14,14 @@ function Orders() {
     if (!user) navigate("/signin");
   }, [user]);
   return (
-    <div className="sec-top min-h-[70vh]">
+    <div className="sec-top min-h-[70vh] pb-4">
       <div className="container flex items-center flex-col w-full">
         <h2 className="sec-header mb-14">Orders</h2>
 
         {!isLoading ? (
           orders.length ? (
-            <div className="overflow-x-auto w-full rounded-lg  shadow-lg sm:w-auto">
-              <table className="w-full max-w-full bg-white rounded-lg shadow-lg">
+            <div className="overflow-x-auto w-full rounded-lg  shadow-lg sm:w-auto  mb-24">
+              <table className="w-full max-w-full bg-white rounded-lg shadow-lg ">
                 <thead className="bg-primary-700 sm:text-lg text-xs rounded-lg text-white">
                   <tr>
                     <th className="py-2 px-4">Order ID</th>

@@ -52,11 +52,14 @@ function ContactUs() {
           onSubmit={sendEmail}
           className="flex flex-col gap-6  mx-auto w-full md:max-w-[600px]">
           <div className="">
-            <label className="input-label">Name</label>
+            <label htmlFor="user_name" className="input-label">
+              Name
+            </label>
             <input
               className="input"
               type="text"
               name="user_name"
+              id="user_name"
               required
               value={name}
               onChange={(e) => {
@@ -65,10 +68,13 @@ function ContactUs() {
             />
           </div>
           <div>
-            <label className="input-label">Email</label>
+            <label htmlFor="email" className="input-label">
+              Email
+            </label>
             <input
               className="input"
               type="email"
+              id="email"
               required
               name="user_email"
               value={email}
@@ -78,8 +84,11 @@ function ContactUs() {
             />
           </div>
           <div>
-            <label className="input-label">Message</label>
+            <label className="input-label" htmlFor="message">
+              Message
+            </label>
             <textarea
+              id="message"
               className="input min-h-[150px]  resize-none"
               name="message"
               required
