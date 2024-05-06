@@ -1,9 +1,7 @@
 import { useState } from "react";
 import Img1 from "../../assets/hero/hero-1.e3571e1f41e5ffe2af86.jpg";
 import Img2 from "../../assets/hero/hero-2.c303b8aecb19f8d4efab.jpg";
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
@@ -12,7 +10,7 @@ function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroTexts = [
     {
-      header: "Discover the Latest Trends",
+      header: "Discover the Latest Trends ",
       paragraph:
         "Explore our collection of new arrivals and stay ahead of the fashion curve.",
       image: Img1,
@@ -67,8 +65,6 @@ function Hero() {
               </div>
             </SwiperSlide>
           ))}
-
-
         </Swiper>
       </div>
       {/* <div className="container r h-full relative overflow-hidden">

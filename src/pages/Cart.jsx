@@ -18,10 +18,13 @@ function Cart() {
   const navigate = useNavigate()
   const pay = async (token) => {
     try {
-      const {data} = await axios.post("http://localhost:8000/pay", {
-        amount: totalPrice * 100,
-        token,
-      });
+      const { data } = await axios.post(
+        "https://serverfashionaa.onrender.com//pay",
+        {
+          amount: totalPrice * 100,
+          token,
+        }
+      );
       await dispatch(
         saveOrderAction({
           totalPrice: totalPrice,
