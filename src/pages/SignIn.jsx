@@ -49,12 +49,12 @@ function SignIn() {
           {state.emailError && <p className="error-msg">*{state.email}</p>}
         </div>
         <div>
-          <label htmlFor="email" className="input-label">
+          <label htmlFor="password" className="input-label">
             Password
           </label>
           <input
             type="password"
-            id="email"
+            id="password"
             className="input"
             onChange={(e) =>
               dispatch({ type: "UPDATE_PASSWORD", payload: e.target.value })
