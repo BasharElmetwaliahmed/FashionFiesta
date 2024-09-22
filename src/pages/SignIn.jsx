@@ -1,15 +1,16 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import reducer, { initialState } from "../features/auth/formReducer";
 
 function SignIn() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [loading, setLoading] = useState(false);
   const { signIn } = useAuth();
 
   const submitHandler = async (e) => {
-    let error = false;
     e.preventDefault();
+    let error = false;
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email)) {
       dispatch({
@@ -20,12 +21,18 @@ function SignIn() {
     }
 
     if (!error) {
+      setLoading(true);
       try {
         await signIn(state.email, state.password);
         dispatch({ type: "CLEAR" });
-      } catch (e) {}
+      } catch (e) {
+        // Handle sign-in errors here
+      } finally {
+        setLoading(false);
+      }
     }
   };
+
   return (
     <main className="flex flex-col gap-16 justify-center items-center h-[calc(100vh_-_96px)] container sec-top">
       <h2 className="text-5xl font-semibold">Sign In</h2>
@@ -46,7 +53,7 @@ function SignIn() {
             }
             required
           />
-          {state.emailError && <p className="error-msg">*{state.email}</p>}
+          {state.emailError && <p className="error-msg">*{state.emailError}</p>}
         </div>
         <div>
           <label htmlFor="password" className="input-label">
@@ -63,11 +70,14 @@ function SignIn() {
             required
           />
         </div>
-        <button className="rounded-md bg-primary-700 text-white p-2 mt-6 hover:scale-95 hover:border-2 border-primary-400 transition-all duration-300 hover:shadow-lg">
-          Log in
+        <button
+          type="submit"
+          className="rounded-md bg-primary-700 text-white p-2 mt-6 hover:scale-95 hover:border-2 border-primary-400 transition-all duration-300 hover:shadow-lg"
+          disabled={loading}>
+          {loading ? "Signing in..." : "Log in"}
         </button>
         <p className="my-2">
-          Don't have account{" "}
+          Don't have an account?{" "}
           <Link className="text-primary-700 font-bold" to="/signup">
             sign up
           </Link>
