@@ -119,7 +119,11 @@ function SignUp() {
 
         <button
           type="submit"
-          className="rounded-md bg-primary-700 text-white p-2 mt-6 hover:scale-95 hover:border-2 border-primary-400 transition-all duration-300 hover:shadow-lg"
+          className={`rounded-md text-white p-2 mt-6 transition-all duration-300 hover:shadow-lg ${
+            loading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-primary-700 hover:scale-95 hover:border-2 border-primary-400"
+          }`}
           disabled={loading}
         >
           {loading ? "Signing Up..." : "Sign Up"}
