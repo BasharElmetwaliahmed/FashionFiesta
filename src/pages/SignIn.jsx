@@ -12,10 +12,11 @@ function SignIn() {
     e.preventDefault();
     let error = false;
 
+    // Validate email format
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email)) {
       dispatch({
         type: "SET_EMAIL_ERROR",
-        payload: "email must be in form of example@email.com",
+        payload: "Email must be in the form of example@email.com",
       });
       error = true;
     }
@@ -24,9 +25,9 @@ function SignIn() {
       setLoading(true);
       try {
         await signIn(state.email, state.password);
-        dispatch({ type: "CLEAR" });
+        dispatch({ type: "CLEAR" }); // Clear form after successful sign-in
       } catch (e) {
-        // Handle sign-in errors here
+        // Handle sign-in error
       } finally {
         setLoading(false);
       }
@@ -38,7 +39,8 @@ function SignIn() {
       <h2 className="text-5xl font-semibold">Sign In</h2>
       <form
         className="flex flex-col gap-2  w-full  md:w-[500px] "
-        onSubmit={submitHandler}>
+        onSubmit={submitHandler}
+      >
         <div>
           <label htmlFor="email" className="input-label">
             Email
@@ -70,16 +72,22 @@ function SignIn() {
             required
           />
         </div>
+
         <button
           type="submit"
-          className="rounded-md bg-primary-700 text-white p-2 mt-6 hover:scale-95 hover:border-2 border-primary-400 transition-all duration-300 hover:shadow-lg"
-          disabled={loading}>
+          className={`rounded-md text-white p-2 mt-6 transition-all duration-300 hover:shadow-lg ${
+            loading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-primary-700 hover:scale-95 hover:border-2 border-primary-400"
+          }`}
+          disabled={loading}
+        >
           {loading ? "Signing in..." : "Log in"}
         </button>
         <p className="my-2">
           Don't have an account?{" "}
           <Link className="text-primary-700 font-bold" to="/signup">
-            sign up
+            Sign up
           </Link>
         </p>
       </form>
