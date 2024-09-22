@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CartListItem from "../features/cart/CartListItem";
 import {
@@ -13,6 +14,8 @@ import toast from "react-hot-toast";
 import { getOrders, saveOrderAction } from "../features/orders/ordersSlice";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import "./Spinner.css"; // Import custom CSS for spinner
+
 function Cart() {
   const cart = useSelector(getCart);
   const { orders } = useSelector(getOrders);
@@ -21,7 +24,10 @@ function Cart() {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false); // Loading state
+
   const pay = async (token) => {
+    setLoading(true); // Set loading to true when payment starts
     try {
       const { data } = await axios.post(
         "https://serverfashionaa.onrender.com/pay",
@@ -43,24 +49,34 @@ function Cart() {
       navigate("/orders");
       dispatch(clearCart());
     } catch (err) {
-      toast.error("error while payment proccess try again later");
+      toast.error("Error while processing payment, try again later");
+    } finally {
+      setLoading(false); // Set loading to false after payment is done
     }
   };
 
   return (
-    <div className="container sec-top my-5 ">
+    <div className="container sec-top my-5 relative">
+      {loading && (
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="loader"></div> {/* Spinner here */}
+        </div>
+      )}
+
       <div className="flex justify-between items-center">
         <h2 className="text-6xl my-8">Cart</h2>
         <button
           className="bg-red-600 text-white w-fit py-2 px-3 rounded-md flex gap-2 items-center"
-          onClick={() => dispatch(clearCart())}>
+          onClick={() => dispatch(clearCart())}
+          disabled={loading} // Disable button when loading
+        >
           <FaRegTrashAlt />
           Clear Cart
         </button>
       </div>
 
       {cart.length ? (
-        <div className="p-3 shadow-md rounded-md w-full md:w-[700px] mx-auto  ">
+        <div className="p-3 shadow-md rounded-md w-full md:w-[700px] mx-auto">
           <CartListItem cart={cart} />
           <div className="py-4 flex flex-col gap-2">
             <div className="flex justify-between items-center ">
@@ -71,7 +87,7 @@ function Cart() {
               <p>Shipping</p>
               <p>10$</p>
             </div>
-            <div className="flex justify-between items-center font-bold pb-2 border-b-[1px] border-gray-300  ">
+            <div className="flex justify-between items-center font-bold pb-2 border-b-[1px] border-gray-300">
               <p>Total</p>
               <p>{totalPrice}$</p>
             </div>
@@ -91,7 +107,7 @@ function Cart() {
               />
             </div>
           ) : (
-            <p>Login To Continue To Payment Proccess</p>
+            <p>Login To Continue To Payment Process</p>
           )}
         </div>
       ) : (
