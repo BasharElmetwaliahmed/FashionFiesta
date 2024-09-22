@@ -14,7 +14,6 @@ import toast from "react-hot-toast";
 import { getOrders, saveOrderAction } from "../features/orders/ordersSlice";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import "./Spinner.css"; // Import custom CSS for spinner
 
 function Cart() {
   const cart = useSelector(getCart);
